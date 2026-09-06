@@ -1,0 +1,47 @@
+schema_version: 1
+
+context:
+  name: itermate
+  version: "1.0.2"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/itermate-${{ version }}.zip
+  sha256: 5ee758cbb363493156cee7a29effc2b148a1a19d2be3097e92fc824991901e2a
+
+build:
+  number: 2
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - pip
+    - setuptools
+  run:
+    - python >=${{ python_min }}
+
+tests:
+  - python:
+      imports:
+        - itermate
+      pip_check: true
+      python_version: ${{ python_min }}
+
+about:
+  license: MIT
+  license_file: LICENSE
+  summary: Iterator / Generator tools
+  description: |
+    Iterator-tools for functional programming.
+  homepage: https://github.com/hweickert/itermate
+  repository: https://github.com/hweickert/itermate
+  documentation: https://github.com/hweickert/itermate
+
+extra:
+  recipe-maintainers:
+    - jan-janssen
